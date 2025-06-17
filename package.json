@@ -1,0 +1,29 @@
+{
+  "name": "ai-antonios-intelligence",
+  "version": "0.1.0",
+  "description": "SeniorBMafias Bangahs&BadDGirls - A digital embodiment of intelligence, creativity, and cultural expression by Antonio.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Antonioryarbough/AI-ANTONIOS-INTELLIGENCE.git"
+  },
+  "keywords": [
+    "ai",
+    "intelligence",
+    "cultural",
+    "seniorbmafia",
+    "bangahs",
+    "baddgirls",
+    "rhymes"
+  ],
+  "author": "Antonio (SeniorBMafia)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Antonioryarbough/AI-ANTONIOS-INTELLIGENCE/issues"
+  },
+  "homepage": "https://github.com/Antonioryarbough/AI-ANTONIOS-INTELLIGENCE#readme"
+}
