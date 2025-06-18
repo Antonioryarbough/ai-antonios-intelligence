@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>AI-Antonios Intelligence: Where Magic Happens</title>
+
+  <!-- External font-awesome stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body, html {
       margin: 0;
@@ -13,13 +17,37 @@
       background: #111;
       color: #eee;
     }
-    /* Container for the AI experience (full page) */
+
+    .hero {
+      background: url('WIN_20250617_21_52_21_Pro.jpg') no-repeat center center/cover;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 2;
+    }
+
     #ai-container {
       position: relative;
       width: 100%;
       height: 100%;
     }
-    /* Live webcam background video */
+
     #ai-bg {
       position: absolute;
       top: 0;
@@ -30,7 +58,7 @@
       z-index: 1;
       filter: brightness(0.7);
     }
-    /* Overlay for your AI interface */
+
     #ai-overlay {
       position: absolute;
       top: 50%;
@@ -43,15 +71,17 @@
       border-radius: 10px;
       max-width: 600px;
     }
+
     #ai-overlay h1 {
       margin: 0 0 1rem;
       font-size: 2.5rem;
     }
+
     #ai-overlay p {
       font-size: 1.2rem;
       margin: 0 0 1.5rem;
     }
-    /* Call-to-action button */
+
     #artistBtn {
       padding: 0.7rem 1.5rem;
       font-size: 1.2rem;
@@ -61,17 +91,25 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     #artistBtn:hover {
       background: #e67e22;
     }
   </style>
 </head>
+
 <body>
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-text">
+      <h1>Welcome to AI-Antonios Intelligence</h1>
+      <p>Live from the lab — beats, purpose, and presence hosted by your AI clone.</p>
+    </div>
+  </section>
+
   <div id="ai-container">
-    <!-- Live camera feed as the background -->
     <video id="ai-bg" autoplay muted playsinline></video>
-    
-    <!-- Overlay with the AI interface and call-to-action -->
+
     <div id="ai-overlay">
       <h1>Welcome to AI-Antonios Intelligence</h1>
       <p>
@@ -83,7 +121,6 @@
   </div>
 
   <script>
-    // Live camera feed integration
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true })
         .then(function(stream) {
@@ -102,11 +139,8 @@
     } else {
       alert("Your browser does not support camera access.");
     }
-    
-    // Example event for the call-to-action button
+
     document.getElementById('artistBtn').addEventListener('click', function() {
-      // This is where you'll eventually open the Artist AIs section.
-      // For now, we can simply show an alert or redirect to a coming soon page.
       alert("Artist AIs coming soon!");
     });
   </script>
