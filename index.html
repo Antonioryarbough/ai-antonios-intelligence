@@ -7,95 +7,7 @@
   <!-- External font-awesome stylesheet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #eee;
-    }
 
-    .hero {
-      background: url('WIN_20250617_21_52_21_Pro.jpg') no-repeat center center/cover;
-      height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-      font-family: sans-serif;
-    }
-
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .hero-text {
-      position: relative;
-      z-index: 2;
-    }
-
-    #ai-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    #ai-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-      filter: brightness(0.7);
-    }
-
-    #ai-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 2rem;
-      border-radius: 10px;
-      max-width: 600px;
-    }
-
-    #ai-overlay h1 {
-      margin: 0 0 1rem;
-      font-size: 2.5rem;
-    }
-
-    #ai-overlay p {
-      font-size: 1.2rem;
-      margin: 0 0 1.5rem;
-    }
-
-    #artistBtn {
-      padding: 0.7rem 1.5rem;
-      font-size: 1.2rem;
-      background: #f90;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    #artistBtn:hover {
-      background: #e67e22;
-    }
-  </style>
 </head>
 
 <body>
@@ -103,7 +15,7 @@
     <div class="overlay"></div>
     <div class="hero-text">
       <h1>Welcome to AI-Antonios Intelligence</h1>
-      <p>Live from the lab — beats, purpose, and presence hosted by your AI clone.</p>
+      <p>Live from the lab — productions, purpose, and presence hosted by your AI.</p>
     </div>
   </section>
 
@@ -121,28 +33,87 @@
   </div>
 
   <script>
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-          const video = document.getElementById('ai-bg');
-          if ('srcObject' in video) {
-            video.srcObject = stream;
-          } else {
-            video.src = window.URL.createObjectURL(stream);
-          }
-          video.play();
-        })
-        .catch(function(error) {
-          console.error("Error accessing the camera:", error);
-          alert("Unable to access your webcam. Please check your permissions.");
-        });
-    } else {
-      alert("Your browser does not support camera access.");
-    }
 
-    document.getElementById('artistBtn').addEventListener('click', function() {
-      alert("Artist AIs coming soon!");
-    });
-  </script>
+  let sharedStream;
+
+  async function initCamera() {
+    try {
+      sharedStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+
+      // Feed both video tags
+      const aiBg = document.getElementById('ai-bg');
+      const studio = document.getElementById('studioCam');
+      aiBg.srcObject = sharedStream;
+      studio.srcObject = sharedStream;
+
+      aiBg.play();
+      studio.play();
+    } catch (err) {
+      console.error("Camera access error:", err);
+    }
+  }
+
+  window.onload = initCamera;
+
+  function togglePresence() {
+    const still = document.getElementById('stillPresence');
+    const studio = document.getElementById('studioCam');
+    const aiBg = document.getElementById('ai-bg');
+
+    const isLive = studio.classList.contains('fade-in');
+
+    if (!isLive) {
+      still.classList.remove('fade-in');
+      still.classList.add('fade-out');
+
+      aiBg.classList.remove('fade-in');
+      aiBg.classList.add('fade-out');
+
+      studio.classList.remove('fade-out');
+      studio.classList.add('fade-in');
+
+      console.log("Switched to live presence 🎥");
+    } else {
+      studio.classList.remove('fade-in');
+      studio.classList.add('fade-out');
+
+      still.classList.remove('fade-out');
+      still.classList.add('fade-in');
+
+      aiBg.classList.remove('fade-out');
+      aiBg.classList.add('fade-in');
+
+      console.log("Back to image presence 🖼️");
+    }
+  }
+</script>
+
+
+<!-- This toggles between still image and live cam -->
+<div id="stillPresence" class="fade-in">
+  <img src="assets/tonebone-still.png" />
+</div>
+
+<video id="studioCam" class="fade-out" autoplay muted playsinline></video>
+
+<!-- That’s it. No extra <script> tags below this -->
+<button onclick="togglePresence()" style="
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  background: #0ff;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #0ff;
+
+<button id="presenceBtn" onclick="togglePresence()" style="...">
+  Switch Presence
+</button>
+
 </body>
 </html>
